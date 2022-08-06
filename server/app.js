@@ -5,9 +5,13 @@ const app = express()
 dotenv.config({path:'./config.env'})
 
 require('./db/conn');
+app.use(express.json());
+
+// 
 
 const port = process.env.PORT;
 
+app.use(require('./router/auth'));
 
 app.get('/', (req, res) => {
   res.send('Hello World');
