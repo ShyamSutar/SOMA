@@ -161,9 +161,9 @@ export default function Signup() {
                 </form>
               </div>
             </div>
-            <div className="right">
+            <div className="right p-9">
               <figure>
-                <img src={registration} alt="registration image" />
+                <img src={registration} alt="registrationImage" />
               </figure>
             </div>
           </div>
