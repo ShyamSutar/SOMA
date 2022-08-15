@@ -5,11 +5,11 @@ import {Link } from "react-router-dom";
 export default function Signup() {
   return (
     <>
-      <section className="signup mt-16 ">
+      <section className="signup m-16">
         {/* <div className='container mx-auto mt-5 shadow'> */}
 
-        <div className="">
-          <div className="p-2 w-full bg-white rounded-lg shadow-xl dark:border md:mt-0  sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 container mx-auto flex justify-around flex-wrap items-center ">
+        <div className="h-screen">
+          <div className="h-full p-2 w-full bg-white rounded-lg dark:border md:mt-0  sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 container mx-auto flex justify-around flex-wrap items-center ">
             <div className="left ">
               {/* <h2 className="p-6 sm:p-8 md:space-y-6 text-3xl font-bold">SIGN UP</h2> */}
 

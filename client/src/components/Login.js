@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 export default function Login() {
   return (
     <div>
-      <section className="signup mt-24">
-        <div className=" p-2 w-full bg-white rounded-lg shadow-xl dark:border md:mt-0  sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 container mx-auto flex justify-around flex-wrap items-center ">
+      <section className="signup p-12 h-screen">
+        <div className="h-full p-2 w-full bg-white rounded-lg  dark:border md:mt-0  sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 container mx-auto flex justify-around flex-wrap items-center  ">
           <div className="left">
             <div className="bg-white rounded-lg  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
