@@ -1,8 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 import registration from "../images/registration.png";
-import {Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
+
+  let navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    work: "",
+    password: "",
+    cpassword: ""
+  });
+
+  let name, value;
+  const handleInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+
+    setUser({...user, [name]: value});
+  }
+
+  const postData = async (e) =>{
+    e.preventDefault();
+    
+    const {name, email, phone, work, password, cpassword} = user;
+
+    const res = await fetch("/register",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name, email, phone, work, password, cpassword
+      })
+    })
+
+    const data = await res.json();
+    if(data.status === 422 || !data){
+      window.alert("Invalid Registration");
+    }else{
+      window.alert("successfull");
+
+      navigate('/login')
+      // history.pushState('/login');
+    }
+  }
+
   return (
     <>
       <section className="signup m-16">
@@ -17,27 +63,29 @@ export default function Signup() {
                 <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Sign Up
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="#">
+                <form className="space-y-4 md:space-y-6" method="post">
                   <div>
                     <label
-                      for="name"
+                      htmlFor="name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your name
                     </label>
                     <input
                       type="text"
-                      name="text"
-                      id="text"
+                      name="name"
+                      id="name"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="John"
                       required=""
+                      value={user.name}
+                      onChange={handleInputs}
                     />
                   </div>
 
                   <div>
                     <label
-                      for="email"
+                      htmlFor="email"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your email
@@ -48,47 +96,53 @@ export default function Signup() {
                       id="email"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
+                      value={user.email}
+                      onChange={handleInputs}
                       required=""
                     />
                   </div>
 
                   <div>
                     <label
-                      for="number"
+                      htmlFor="number"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your Mobile No
                     </label>
                     <input
                       type="tel"
-                      name="mobile"
-                      id="mobile"
+                      name="phone"
+                      id="phone"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="1234567899"
+                      value={user.phone}
+                      onChange={handleInputs}
                       required=""
                     />
                   </div>
 
                   <div>
                     <label
-                      for="profession"
+                      htmlFor="profession"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your profession
                     </label>
                     <input
                       type="text"
-                      name="profession"
-                      id="profession"
+                      name="work"
+                      id="work"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="Developer"
+                      value={user.work}
+                      onChange={handleInputs}
                       required=""
                     />
                   </div>
 
                   <div>
                     <label
-                      for="password"
+                      htmlFor="password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Password
@@ -99,22 +153,26 @@ export default function Signup() {
                       id="password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      value={user.password}
+                      onChange={handleInputs}
                       required=""
                     />
                   </div>
                   <div>
                     <label
-                      for="confirm-password"
+                      htmlFor="confirm-password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Confirm password
                     </label>
                     <input
-                      type="confirm-password"
-                      name="confirm-password"
-                      id="confirm-password"
+                      type="password"
+                      name="cpassword"
+                      id="cpassword"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      value={user.cpassword}
+                      onChange={handleInputs}
                       required=""
                     />
                   </div>
@@ -130,7 +188,7 @@ export default function Signup() {
                     </div> */}
                     {/* <div className="ml-3 text-sm">
                       <label
-                        for="terms"
+                        htmlFor="terms"
                         className="font-light text-gray-500 dark:text-gray-300"
                       >
                         I accept the{" "}
@@ -145,6 +203,7 @@ export default function Signup() {
                   {/* </div> */}
                   <button
                     type="submit"
+                    onClick={postData}
                     className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Create an account
